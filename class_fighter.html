@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="character-sheet">
+    <div class="character-header">
+      <h1>Fighter: Make Your Choices</h1>
+    </div>
+
+    <form method="post">
+      <fieldset>
+        <legend><strong>Primary Ability</strong> (pick one)</legend>
+        {% for ab in primary_abilities %}
+          <div>
+            <input
+              type="radio"
+              id="primary_{{ ab.lower() }}"
+              name="primary_ability"
+              value="{{ ab }}"
+              required
+            >
+            <label for="primary_{{ ab.lower() }}">{{ ab }}</label>
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Skill Proficiencies</strong> (pick two)</legend>
+        {% for sk in skills %}
+          <div>
+            <input
+              type="checkbox"
+              id="skill_{{ sk|replace(' ', '_') }}"
+              name="skills"
+              value="{{ sk }}"
+            >
+            <label for="skill_{{ sk|replace(' ', '_') }}">{{ sk }}</label>
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Fighting Style</strong> (pick one)</legend>
+        <select name="fighting_style" required>
+          <option value="" disabled selected>-- choose one --</option>
+          {% for style in fighting_styles %}
+            <option value="{{ style }}">{{ style }}</option>
+          {% endfor %}
+        </select>
+      </fieldset>
+
+      <button class="button" type="submit">
+        Confirm Fighter Details
+      </button>
+    </form>
+  </div>
+{% endblock %}

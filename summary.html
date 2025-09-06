@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="character-sheet">
+    <h1>Character Summary</h1>
+
+    <p><strong>Race:</strong> {{ race }}</p>
+    <p><strong>Class:</strong> {{ char_class }}</p>
+    <p><strong>Primary Ability:</strong> {{ primary_ability }}</p>
+    <p>
+      <strong>Skill Proficiencies:</strong>
+      {{ skill_proficiencies | join(", ") }}
+    </p>
+
+    {% if class_features %}
+      <h2>Class Features</h2>
+      <ul>
+        {% for feature in class_features %}
+          <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if fighting_style %}
+      <p><strong>Fighting Style:</strong> {{ fighting_style }}</p>
+    {% endif %}
+
+    <h2>Ability Scores</h2>
+    <table class="abilities-table">
+      <thead>
+        <tr>
+          <th>Ability</th>
+          <th>Score</th>
+          <th>Mod</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for label, score in stats.items() %}
+          {% set mod = (score - 10) // 2 %}
+          <tr>
+            <td>{{ label.capitalize() }}</td>
+            <td>{{ score }}</td>
+            <td>{{ "+" if mod >= 0 else "" }}{{ mod }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Skills</h2>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Ability</th>
+          <th>Mod</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sk in skills_mods %}
+          <tr{% if sk.proficient %} class="proficient"{% endif %}>
+            <td>{{ sk.name }}</td>
+            <td>{{ sk.abbr.upper() }}</td>
+            <td>{{ "+" if sk.mod >= 0 else "" }}{{ sk.mod }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if char_class in ["Wizard", "Cleric"] %}
+      <h2>Spellcasting</h2>
+      <p>
+        <strong>Spell Save DC:</strong>
+        {{ (cast_mod, prof_bonus) | spell_save_dc }}
+      </p>
+      <p>
+        <strong>Spell Attack Bonus:</strong>
+        {{ (cast_mod, prof_bonus) | spell_attack_bonus }}
+      </p>
+    {% endif %}
+
+    <h2>Equipment</h2>
+    <ul>
+      {% for eq in equipment_details %}
+        <li>{{ eq.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <p>
+      <strong>Coins Remaining:</strong>
+      {{ coins_left | format_coins }}
+    </p>
+
+    <div class="button-group">
+      <a class="button" href="{{ url_for('encounter.inn_landing') }}">
+        Begin Adventure
+      </a>
+      <a class="button" href="{{ url_for('download.download_pdf') }}">
+        Download PDF
+      </a>
+      <a class="button" href="{{ url_for('characters.step1_abilities') }}">
+        Start Over
+      </a>
+    </div>
+  </div>
+{% endblock %}

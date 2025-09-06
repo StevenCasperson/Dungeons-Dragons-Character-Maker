@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Choose Your Race</h2>
+  <form method="post" action="{{ url_for('characters.step2_race') }}">
+    {% for race in races %}
+      <div>
+        <input type="radio" id="{{ race }}" name="race" value="{{ race }}" required>
+        <label for="{{ race }}">{{ race }}</label>
+      </div>
+    {% endfor %}
+    <button class="button" type="submit">Next</button>
+  </form>
+{% endblock %}

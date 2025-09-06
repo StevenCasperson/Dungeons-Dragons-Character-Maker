@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="character-sheet">
+    <h1>Roll Your Ability Scores</h1>
+
+    {% if stats %}
+      <table class="abilities-table">
+        <thead>
+          <tr>
+            <th>Ability</th>
+            <th>Score</th>
+            <th>Mod</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for label in labels %}
+            {% set score = stats[label.lower()] %}
+            {% set mod   = ((score - 10) // 2) %}
+            <tr>
+              <td>{{ label }}</td>
+              <td>{{ score }}</td>
+              <td>{{ "+" if mod >= 0 else "" }}{{ mod }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No stats rolled yet. Click “Roll Ability Scores” to begin.</p>
+    {% endif %}
+
+    <div class="button-group">
+      <form method="post" style="display:inline;">
+        <button type="submit" class="button">Roll Ability Scores</button>
+      </form>
+
+      {% if stats %}
+        <form method="get"
+              action="{{ url_for('characters.step2_race') }}"
+              style="display:inline;">
+          <button type="submit" class="button">Accept &amp; Continue</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

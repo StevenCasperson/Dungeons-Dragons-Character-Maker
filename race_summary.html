@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="character-sheet">
+    <div class="character-header">
+      <h1>{{ race }} Character</h1>
+    </div>
+
+    <div class="content-grid">
+      <!-- Stats Tables -->
+      <div class="stats-block">
+        <table class="abilities-table">
+          <thead>
+            <tr>
+              <th>Ability</th>
+              <th>Base</th>
+              <th>Mod</th>
+              <th>+Racial</th>
+              <th>New Mod</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for label in labels %}
+              {% set key = label.lower() %}
+              {% set base = base_stats[key] %}
+              {% set bonus = adjusted_stats[key] - base %}
+              {% set new_score = adjusted_stats[key] %}
+              {% set mod = ((base - 10) // 2) %}
+              {% set new_mod = ((new_score - 10) // 2) %}
+              <tr>
+                <td class="ability-cell">{{ label }}</td>
+                <td class="score-cell">{{ base }}</td>
+                <td class="mod-cell">
+                  {{ "+" if mod >= 0 else "" }}{{ mod }}
+                </td>
+                <td class="score-cell">{{ "+" if bonus >= 0 else "" }}{{ bonus }}</td>
+                <td class="mod-cell">
+                  {{ "+" if new_mod >= 0 else "" }}{{ new_mod }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <form method="get" action="{{ url_for('characters.step3_class') }}">
+          <button class="button" type="submit">Accept & Continue</button>
+        </form>
+      </div>
+
+      <!-- Portrait Image -->
+      <div class="portrait-block">
+        <img
+          src="{{ url_for('static', filename='portraits/' + race|lower + '.png') }}"
+          alt="{{ race }} portrait"
+        >
+      </div>
+    </div>
+  </div>
+{% endblock %}

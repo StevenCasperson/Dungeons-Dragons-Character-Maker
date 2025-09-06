@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Step 5: Buy Equipment{% endblock %}
+
+{% block content %}
+  <h1>Step 5: Buy Equipment</h1>
+  <p>You have <strong>{{ coins_left.gp }} gp</strong> remaining.</p>
+
+  <form method="post">
+    {{ form.hidden_tag() }}
+
+    {% for label, field in fields %}
+      <div class="form-item">
+        <label>{{ label }}</label>
+        {{ field(
+            class="form-select" if field.choices else ""
+        )() }}
+      </div>
+    {% endfor %}
+
+    <button type="submit">Purchase Items</button>
+  </form>
+{% endblock %}

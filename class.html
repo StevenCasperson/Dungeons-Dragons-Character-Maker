@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Choose Your Class</h2>
+  <form method="post" action="{{ url_for('characters.step3_class') }}">
+    {% for cls in classes %}
+      <div>
+        <input type="radio" id="{{ cls }}" name="class" value="{{ cls }}" required>
+        <label for="{{ cls }}">{{ cls }}</label>
+      </div>
+    {% endfor %}
+    <button class="button" type="submit">Next</button>
+  </form>
+{% endblock %}

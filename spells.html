@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>First-Level {{ char_class }} Spells</h2>
+  <ul>
+    {% for spell in spells %}
+      <li>{{ spell }}</li>
+    {% endfor %}
+  </ul>
+  <a class="button" href="{{ url_for('characters.step5_equipment') }}">Choose Equipment</a>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Step 4: Select Skills{% endblock %}
+
+{% block content %}
+  <h1>Select 2 Skills for your {{ chosen_class }}</h1>
+
+  <form method="post">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.skills.label }}
+      {{ form.skills(
+        class="form-select", 
+        size= len(form.skills.choices), 
+        multiple=true
+        ) }}
+      {% for err in form.skills.errors %}
+        <div class="error">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endblock %}
