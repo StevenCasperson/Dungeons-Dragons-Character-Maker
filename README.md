@@ -12,6 +12,8 @@ Any players that load the webpage will realize that the particular play style is
 
 Passive Perception Check
 
+## Dragon.Kills += viewersPrey(#) &&& Dragon.Experience += viewersPrey(level)
+
 // This will mostly be done with Python arrays ...
 Skills[]
 
