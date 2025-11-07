@@ -9,20 +9,7 @@ Either way, when my project is complete, I want the user/player to enjoy their a
 An option to download the character stored in .pdf file will be available on the last screen. 
 
 Any players that load the webpage will realize that the particular play style is based on choices ... They'll be presented with 3 - 5 buttons with text on them deciding what they plan to do based on specific encounters... And depending on their choices /// Conditional Programming ... And when the character they create goes through this adventure, they'll notice that the leveling up may NOT look like what they may be used to! 
-
-Passive Perception Check
-
-## Dragon.Kills += viewersPrey(#) &&& Dragon.Experience += viewersPrey(level)
-
-// This will mostly be done with Python arrays ...
-Skills[]
-
-// This will mostly be done with Python arrays ...
-Spells[]
-
-// This will mostly be done with Python arrays ...
-Equipment[]    
-
+  
 The following are packages that need to be installed in order to run the app:
 blinker==1.9.0
 charset-normalizer==3.4.3
